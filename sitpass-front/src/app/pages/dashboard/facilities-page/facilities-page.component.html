@@ -1,0 +1,21 @@
+<app-wrap extendClass="my-page-wrap">
+  <h1 class="my-h1">Manage Facilities</h1>
+
+  <div class="pb-12" *ngIf="loginService.isAdmin()">
+    <h2 class="my-h2">Add New Facility</h2>
+    <app-create-facility-form (facilityAdded)="addFacility($event)" />
+  </div>
+
+  <app-table *ngIf="loginService.isAdmin()"
+    [headings]="['ID', 'Name','Total Rating', 'City', 'Description', 'Created At', 'Address', 'Active']"
+    [data]="filteredFacilitiesData"
+    [actions]="[
+    { label: 'Edit', icon: 'fas fa-edit', btnBackground: 'bg-primary', callback: editFacility.bind(this) }, 
+    { label: 'Delete', icon: 'fas fa-trash', btnBackground: 'bg-red-600', callback: deleteFacility.bind(this) } ]"></app-table>
+
+  <app-table *ngIf="loginService.isUser()"
+    [headings]="['ID', 'Name','Total Rating', 'City', 'Description', 'Created At', 'Address', 'Active']"
+    [data]="filteredFacilitiesData" [actions]="[
+{ label: 'Edit', icon: 'fas fa-edit', btnBackground: 'bg-primary', callback: editFacility.bind(this) } ]"></app-table>
+
+</app-wrap>

@@ -1,0 +1,9 @@
+<ng-container *ngIf="!isLoginPage() && !isRegisterPage()">
+    <app-header />
+</ng-container>
+<main>
+    <router-outlet />
+</main>
+<ng-container *ngIf="!isLoginPage() && !isRegisterPage()">
+    <app-footer />
+</ng-container>

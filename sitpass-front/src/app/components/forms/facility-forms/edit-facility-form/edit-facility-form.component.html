@@ -1,0 +1,113 @@
+<form *ngIf="loginService.isAdmin() || isUserManager" [formGroup]="formData" (ngSubmit)="onSubmit()" class="flex flex-col justify-between gap-x-12 gap-y-8">
+    <div *ngIf="loginService.isAdmin()" class="my-input-wrap">
+        <label>Name:</label>
+        <input type="text" name="name" placeholder="Name" class="my-input-secondary" formControlName="name" />
+    </div>
+    <div *ngIf="loginService.isAdmin()" class="my-input-wrap">
+        <label>City:</label>
+        <input type="text" name="city" placeholder="City" class="my-input-secondary" formControlName="city" />
+    </div>
+    <div *ngIf="loginService.isAdmin()" class="my-input-wrap">
+        <label>Address:</label>
+        <input type="text" name="address" placeholder="Address" class="my-input-secondary" formControlName="address">
+    </div>
+    <div *ngIf="loginService.isAdmin()" class="my-input-wrap">
+        <label>Description:</label>
+        <input type="text" name="description" placeholder="Description" class="my-input-secondary"
+            formControlName="description" />
+    </div>
+
+    <div *ngIf="formData" class="flex flex-col gap-y-8">
+        <div formArrayName="disciplines" class="text-center lg:text-left">
+            <label class="lg:mr-4">Disciplines:</label>
+            <div *ngFor="let disciplineGroup of disciplineControls.controls; let i=index" [formGroupName]="i">
+                <div class="my-input-wrap mt-4 lg:mt-2">
+                    <input class="my-input-secondary" type="text" [value]="" formControlName="name"
+                    placeholder="Write discipline name here">
+                    <app-button extendClass="mb-2 lg:mb-0" type="button" (click)="removeDiscipline(i)">
+                        <i class="fas fa-trash my-text-error"></i>
+                    </app-button>
+                </div>
+            </div>
+            <div class="flex justify-center items-center lg:inline-block lg:mt-2">
+                <app-button type="button" (click)="addDiscipline()">Add More Discipline</app-button>
+            </div>
+        </div>
+
+        <div formArrayName="workDays" class="text-center lg:text-left">
+            <label class="lg:mr-4">Work Days:</label>
+            <div *ngFor="let workDayGroup of workDayControls.controls; let i=index" [formGroupName]="i">
+                <div class="my-input-wrap mt-4 lg:mt-2">
+                    <select *ngIf="daysOfWeek && daysOfWeek.length" class="my-input-secondary" formControlName="day">
+                        <option *ngFor="let day of daysOfWeek" [value]="day">{{ day }}</option>
+                    </select>
+                    <input class="my-input-secondary" type="time" formControlName="from">
+                    <input class="my-input-secondary" type="time" formControlName="until">
+                    <app-button extendClass="mb-2 lg:mb-0" type="button" (click)="removeWorkDay(i)">
+                        <i class="fas fa-trash my-text-error"></i>
+                    </app-button>
+                </div>
+            </div>
+            <div class="flex justify-center items-center lg:inline-block lg:mt-2">
+                <app-button type="button" (click)="addWorkDay()">Add More Work Days</app-button>
+            </div>
+        </div>
+
+        <div formArrayName="images" class="text-center lg:text-left">
+            <label class="lg:mr-4">Images:</label>
+            <div *ngFor="let imageGroup of imageControls.controls; let i=index" [formGroupName]="i">
+                <div class="my-input-wrap mt-4 lg:mt-2">
+                    <img *ngIf="imageUrls[i]" [src]="imageUrls[i]" class="my-facility-img" alt="Not uploaded yet" />
+                    <input *ngIf="!imageUrls[i]" type="file" formControlName="path" />
+                    <app-button extendClass="mb-2 lg:mb-0" type="button" (click)="removeImage(i)">
+                        <i class="fas fa-trash my-text-error"></i>
+                    </app-button>
+                </div>
+            </div>
+            <div class="flex justify-center items-center lg:inline-block lg:mt-2">
+                <app-button type="button" (click)="addImage()">Add More Images</app-button>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <p class="my-text-error text-center lg:text-left"
+            *ngIf="formData?.get('name')?.invalid && formData?.get('name')?.touched">
+            Name can't be empty.
+        </p>
+        <p class="my-text-error text-center lg:text-left"
+            *ngIf="formData?.get('city')?.invalid && formData?.get('city')?.touched">
+            City can't be empty.
+        </p>
+        <p class="my-text-error text-center lg:text-left"
+            *ngIf="formData?.get('address')?.invalid && formData?.get('address')?.touched">
+            Address can't be empty.
+        </p>
+        <p class="my-text-error text-center lg:text-left"
+            *ngIf="formData?.get('description')?.invalid && formData?.get('description')?.touched">
+            Description can't be empty.
+        </p>
+        <p class="my-text-error text-center lg:text-left"
+            *ngIf="formData?.get('disciplines')?.invalid && formData?.get('disciplines')?.touched">
+            Problem with Disciplines
+        </p>
+        <p class="my-text-error text-center lg:text-left"
+            *ngIf="formData?.get('workDays')?.invalid && formData?.get('workDays')?.touched">
+            Problem with Work Days. Either duplicate or no info
+        </p>
+        <p class="my-text-error text-center lg:text-left"
+            *ngIf="formData?.get('images')?.invalid && formData?.get('images')?.touched">
+            Problem with Images. Not selected.
+        </p>
+        <p class="my-text-error text-center lg:text-left"> {{errorMsg}} </p>
+    </div>
+
+    <div class="flex justify-center lg:justify-start">
+        <app-button type="submit"
+            [extendClass]="!formData.valid ? 'border-gray items-center' : 'border-primary hover:bg-primary hover:border-primary hover:text-white items-center'"
+            [isDisabled]="!formData.valid">
+            UPDATE FACILITY
+        </app-button>
+    </div>
+
+</form>

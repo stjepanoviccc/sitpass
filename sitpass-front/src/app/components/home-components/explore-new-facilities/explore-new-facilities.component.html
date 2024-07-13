@@ -1,0 +1,9 @@
+<h2 class="my-h2 pt-12 lg:pt-24 text-red-600 border-b-2 border-red-600" id="exploreNewFacilities">Explore New Facilities</h2>
+<div *ngFor="let facility of exploreNewFacilitiesData">
+    <app-facility-card [facility]="facility"></app-facility-card>
+</div>
+<p class="text-center lg:text-left py-2" *ngIf="exploreNewFacilitiesData.length < pagination.pageSize">... No more available facilities</p>
+<app-pagination-button [pagination]="pagination" [facilitiesData]="exploreNewFacilitiesData"
+    (previousPage)="loadPreviousPage()"
+    (nextPage)="loadNextPage()">
+</app-pagination-button>

@@ -1,0 +1,18 @@
+<app-wrap extendClass="my-page-wrap">
+    <h1 class="my-h1">Manage Account Requests</h1>
+
+    <app-table [headings]="['ID', 'Email', 'Password', 'Rejection Reason', 'Created At', 'Address', 'Status']" [data]="accountRequestsData" [actions]="[
+    { label: 'Accept', icon: 'fas fa-edit', btnBackground: 'bg-primary', callback: acceptRequest.bind(this) }, 
+    { label: 'Reject', icon: 'fas fa-trash', btnBackground: 'bg-red-600', callback: rejectRequest.bind(this) }
+  ]"></app-table>
+
+    <app-modal [showModal]="showModal">
+        <button type="button" class="absolute right-4 top-3" (click)="toggleRejectionReasonModal()">
+            <i class="fas fa-times text-lg"></i>
+        </button>
+        <h3 class="text-xl font-bold pb-4">Rejection Reason(opt):</h3>
+        <textarea class="w-full border-primary border-2 px-4 py-2 mb-2 rounded-lg" rows="5" [(ngModel)]="rejectionReason" placeholder="Leave your message here."></textarea>
+        <app-button extendClass="border-primary w-full" (buttonClick)="confirmRejection()">Confirm</app-button>
+    </app-modal>
+
+</app-wrap>

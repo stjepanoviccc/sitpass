@@ -1,0 +1,19 @@
+<div
+    [class]="'flex flex-col lg:flex-row border-2 border-primary my-12 rounded-lg transition duration-300 2xl:hover:scale-105 hover:cursor-pointer relative shadow-lg ' + extendClass">
+    <img [src]="imageUrl" alt="No image found." class="w-full h-[300px] lg:w-96">
+    <div class="flex flex-col items-center lg:items-start justify-center p-4">
+        <p class="text-lg lg:p-3"><span>Name:</span> {{ facility.name || "" }}</p>
+        <p class="text-lg lg:p-3"><span>City:</span> {{ facility.city }}</p>
+        <p class="text-lg lg:p-3"><span>Address:</span> {{facility.address}}</p>
+        <p class="text-lg lg:p-3 text-red-600 font-bold">
+            <span>Total Rating:</span> {{ (facility.totalRating != null && facility.totalRating.toFixed(2)) || 'NOT YET' }}</p>
+        <div class="flex flex-col lg:flex-row gap-4 items-center pt-4">
+            <a [routerLink]="'/facilities/' + facility.id">
+                <app-button type="button" extendClass="border-primary items-center transition duration-300 hover:bg-primary hover:text-white">
+                    SEE MORE DETAILS
+                </app-button>
+            </a>
+        </div>
+    </div>
+    <img src="../../../../../assets/images/sitpass.png" alt="logo" class="hidden lg:block absolute top-5 right-10 w-64 opacity-50">
+</div>

@@ -1,0 +1,40 @@
+version: "3.8"
+
+services:
+  sitpass-db:
+    image: postgres
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_DB=sitpass_db
+    ports:
+      - '5432:5432'
+    volumes:
+      - db_data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  sitpass-frontend:
+    build: ./sitpass-front
+    ports:
+      - "80:80"   
+     
+  sitpass-backend:
+    build:
+      context: ./sitpass-backend
+      dockerfile: Dockerfile
+    ports:
+      - '8080:8080'
+    volumes:
+      -  /home/andrej/Projects/sitpass/sitpass-images:/sitpass-images
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://sitpass-db:5432/sitpass_db
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=root
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+    depends_on:
+      - sitpass-db
+    command: ["./mvnw", "test"]
+
+volumes:
+  db_data:
+    driver: local

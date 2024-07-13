@@ -1,0 +1,49 @@
+<app-wrap extendClass="my-page-wrap">
+  <h1 class="my-h1">Profile Page</h1>
+  <app-edit-user-form [emailFromToken]="emailFromToken" />
+  <app-edit-password-form [emailFromToken]="emailFromToken" />
+  <div>
+    <h2 class="my-h2 pt-6 lg:pt-12">My Reviews</h2>
+    <div *ngIf="reviews.length > 0">
+      <app-table 
+            [headings]="['ID', 'Created At','Facility Name', 'Equipment', 'Hygene', 'Staff', 'Space']"
+            [data]="filteredReviews"
+            [actions]="[
+            { label: 'View Details', icon: 'fas fa-info-circle', btnBackground: 'bg-primary', callback: viewReviewDetails.bind(this) } ]">
+        </app-table>
+    </div>
+    <p class="text-center lg:text-left" *ngIf="reviews.length == 0">
+      {{ reviewsErrorMsg || noDataMsg }}
+    </p>
+
+    <h2 class="my-h2 pt-6 lg:pt-12">My Exercises</h2>
+    <div *ngIf="exercises.length > 0">
+      <app-table 
+            [headings]="['ID', 'From','Until', 'Facility Name']"
+            [data]="filteredExercises"
+            [actions]="[]">
+     </app-table>
+    </div>
+    <p class="text-center lg:text-left" *ngIf="exercises.length == 0">
+      {{ exercisesErrorMsg || noDataMsg }}
+    </p>
+
+    <h2 class="my-h2 pt-6 lg:pt-12">My Facilities(Manager)</h2>
+    <div *ngIf="manages.length > 0">
+      <div class="overflow-x-auto">
+        <app-table 
+            [headings]="['ID', 'Start Date','End Date', 'Facility Name', 'Facility ID', 'City']"
+            [data]="filteredManages"
+            [actions]="[
+            { label: 'View Analytics', icon: 'fas fa-info-circle', btnBackground: 'bg-orange-600', callback: viewFacilityAnalytics.bind(this)},
+            { label: 'View Details', icon: 'fas fa-info-circle', btnBackground: 'bg-primary', callback: viewFacilityDetails.bind(this)},
+            { label: 'Edit', icon: 'fas fa-edit', btnBackground: 'bg-primary', callback: viewFacilityEdit.bind(this) },]">
+        </app-table>
+      </div>
+    </div>
+    <p class="text-center lg:text-left" *ngIf="manages.length == 0">
+      {{ managesErrorMsg || noDataMsg }}
+    </p>
+
+  </div>
+</app-wrap>

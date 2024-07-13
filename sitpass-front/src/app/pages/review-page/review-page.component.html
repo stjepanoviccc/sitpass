@@ -1,0 +1,50 @@
+<app-wrap extendClass="my-page-wrap text-center lg:text-left">
+  <button class="underline mb-4 w-full text-center lg:text-left" (click)="goBack()">Go Back</button>
+  <h1 class="my-h1">Review Page</h1>
+  <h2 class="my-h2">Basic Info</h2>
+  <div class="flex flex-col gap-y-8 pt-4 lg:flex-row justify-between">
+    <div class="w-full flex flex-col lg:flex-row gap-x-24 gap-y-4 pb-12">
+      <p>
+        <span class="font-bold">Facility Name:</span>
+        {{ review?.facility?.name }}
+      </p>
+      <p><span class="font-bold">User Name:</span> {{ review?.user?.name }}</p>
+      <p class="font-bold">
+        <span class="text-red-600">Equipment:</span>
+        {{ review?.rate?.equipment }}
+      </p>
+      <p class="font-bold">
+        <span class="text-red-600 font-bold">Hygene:</span> {{ review?.rate?.hygene }}
+      </p>
+      <p class="font-bold"><span class="text-red-600 font-bold">Staff:</span> {{ review?.rate?.staff }}</p>
+      <p class="font-bold"><span class="text-red-600 font-bold">Space:</span> {{ review?.rate?.space }}</p>
+    </div>
+  </div>
+  <div class="w-full flex flex-col gap-y-4">
+    <h2 class="my-h2">Comments</h2>
+    <div *ngIf="parentComment?.text">
+      <span class="font-bold text-lg">{{ review?.user?.name }}:</span>
+      {{ parentComment?.text }}
+    </div>
+    <div *ngFor="let reply of replies">
+      <p>
+        <span class="font-bold text-lg">{{ reply?.user?.name }}:</span>
+        {{ reply?.text }}
+      </p>
+    </div>
+    <div *ngIf="parentComment">
+      <app-reply-form
+        [review]="review"
+        [reply]="
+          replies.length > 0 ? replies[replies.length - 1] : parentComment
+        "
+        (replyAdded)="addReply($event)"
+      ></app-reply-form>
+      <p class="my-text-error">{{errorMsg}}</p>
+    </div>
+    <p *ngIf="!parentComment?.text">
+      There are no comments for this review and since user didn't leave a
+      comment, replies are blocked.
+    </p>
+  </div>
+</app-wrap>

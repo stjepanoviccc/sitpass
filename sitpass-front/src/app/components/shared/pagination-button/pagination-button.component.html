@@ -1,0 +1,15 @@
+<div class="flex justify-center lg:justify-end lg:mt-4 font-bold">
+    <button class="pagination-button px-3 transition duration-300"
+        (click)="previousPage.emit()" [disabled]="pagination.currentPage === 0"
+        [class.hover:text-red-600]="pagination.currentPage != 0"
+        [class.text-gray-400]="pagination.currentPage == 0">
+        &lt; Prev
+    </button>
+    <button class="pagination-button px-3 transition duration-300"
+        (click)="nextPage.emit()" [disabled]="facilitiesData.length < pagination.pageSize"
+        [class.hover:text-red-600]="facilitiesData.length >= pagination.pageSize"
+        [class.text-gray-400]="facilitiesData.length < pagination.pageSize">
+        Next &gt;
+    </button>
+
+</div>

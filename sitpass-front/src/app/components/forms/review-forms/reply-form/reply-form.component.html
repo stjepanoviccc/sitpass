@@ -1,0 +1,6 @@
+<form (submit)="onSubmit()" class="flex flex-col gap-y-4 mt-8 lg:items-end">
+    <input class="my-input w-full text-center lg:text-left" placeholder="Reply here..." type="text" id="text" name="text" [(ngModel)]="formData.text">
+    <p class="my-text-error w-full">{{errorMsg}}</p>
+    <app-button extendClass="text-white bg-primary hover:text-primary hover:bg-white border-2 border-primary px-6 pt-3" type="submit">Submit Reply</app-button>
+</form>
+              

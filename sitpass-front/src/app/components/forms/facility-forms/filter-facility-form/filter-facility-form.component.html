@@ -1,0 +1,54 @@
+<form (ngSubmit)="onSubmit()" class="flex flex-col justify-between gap-x-12 gap-y-8">
+    <div class="my-input-wrap">
+        <label>Cities:</label>
+        <input type="text" name="cities" placeholder="Cities (comma-separated)" class="my-input-secondary" [(ngModel)]="formData.cities"  />
+    </div>
+    
+    <div class="my-input-wrap">
+        <label>Disciplines:</label>
+        <input type="text" name="disciplines" placeholder="Disciplines (comma-separated)" class="my-input-secondary" [(ngModel)]="formData.disciplines" />
+    </div>
+    <div class="my-input-wrap">
+        <label>Min Total Rating:</label>
+        <input type="number" name="minTotalRating" placeholder="Min Total Rating" class="my-input-secondary"
+            [(ngModel)]="formData.minTotalRating" max="10" min="0">
+    </div>
+    <div class="my-input-wrap">
+        <label>Max Total Rating:</label>
+        <input type="number" name="maxTotalRating" placeholder="Max Total Rating" class="my-input-secondary"
+            [(ngModel)]="formData.maxTotalRating" max="10" min="0">
+    </div>
+    <div class="my-input-wrap">
+        <label>Work Day:</label>
+        <select *ngIf="daysOfWeek && daysOfWeek.length" name="workDay" class="my-input-secondary bg-transparent" [(ngModel)]="formData.workDay">
+            <option *ngFor="let day of daysOfWeek" [value]="day">{{ day }}</option>
+        </select>
+    </div>
+    <div class="my-input-wrap">
+        <label>From:</label>
+        <input type="time" name="from" class="my-input-secondary" [(ngModel)]="formData.from">
+    </div>
+    <div class="my-input-wrap">
+        <label>Until:</label>
+        <input type="time" name="from" class="my-input-secondary" [(ngModel)]="formData.until">
+    </div>
+
+    <p class="my-text-error text-center lg:text-left">{{errorMessage}}</p>
+
+    <div class="flex flex-col lg:flex-row lg:justify-end gap-2 pb-12 lg:pb-6">
+        <div class="flex justify-center lg:justify-end">
+            <app-button type="button"
+                extendClass="border-primary items-center" (click)="resetFilter()">
+                RESET FILTER
+            </app-button>
+        </div>
+        <div class="flex justify-center lg:justify-end">
+            <app-button type="submit"
+                extendClass="border-primary hover:bg-primary hover:border-primary hover:text-white items-center">
+                APPLY FILTER
+            </app-button>
+        </div>
+    </div>
+
+
+</form>

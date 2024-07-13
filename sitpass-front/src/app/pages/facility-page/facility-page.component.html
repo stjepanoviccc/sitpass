@@ -1,0 +1,83 @@
+<div class="w-full" *ngIf="imageUrls.length > 0">
+    <swiper-container navigation="true" pagination="true">
+        <swiper-slide *ngFor="let imageUrl of imageUrls" class="flex justify-center">
+            <img class="h-[35vh] lg:h-[70vh] w-full object-cover" [src]="imageUrl" alt="Image not found." />
+        </swiper-slide> 
+    </swiper-container>  
+</div>
+<app-wrap extendClass="my-page-wrap">
+    <button class="underline mb-4 w-full text-center lg:text-left" (click)="goBack()">Go Back</button>
+    <h1 class="my-h1">Facility Profile Page</h1>
+    <h2 class="my-h2">Facility Details</h2>
+    <div
+        class="pb-16 flex flex-col text-center lg:text-left lg:items-start lg:flex-row gap-x-40 gap-y-8">
+        <div class="flex-1">
+            <h3 class="text-lg font-bold pb-4">
+                <i class="fas fa-info-circle pr-2"></i>Info:</h3>
+            <p class="text-lg" *ngIf="facility.name"><span class="font-bold">Name:</span> {{facility.name || ""}}</p>
+            <p class="text-lg" *ngIf="facility.city"><span class="font-bold">City:</span> {{facility.city}}</p>
+            <p class="text-lg" *ngIf="facility.address"><span class="font-bold">Address:</span> {{facility.address}}</p>
+            <p class="text-lg my-text-error" *ngIf="facility.totalRating"><span class="font-bold">Total Rating:</span>
+                {{facility.totalRating.toFixed(2)}}</p>
+        </div>
+        <div class="flex-1">
+            <h3 class="text-lg font-bold pb-4">
+                <span class="fas fa-align-left pr-2"></span>Description:</h3>
+            <p>{{facility.description}}</p>
+        </div>
+        <div class="flex-1" *ngIf="facility.workDays && facility.workDays.length > 0">
+            <h3 class="text-lg font-bold pb-4">
+                <i class="fas fas fa-calendar-alt pr-2"></i>Work Days:</h3>
+            <ul>
+                <li class="text-lg" *ngFor="let workDay of facility.workDays">{{workDay.day}} - {{workDay.from}} -
+                    {{workDay.until}}</li>
+            </ul>
+        </div>
+        <div class="flex-1" *ngIf="facility.disciplines && facility.disciplines.length > 0">
+            <h3 class="text-lg font-bold pb-4">
+                <i class="fas fa-running pr-2"></i>Disciplines:</h3>
+            <ul>
+                <li class="text-lg" *ngFor="let discipline of facility.disciplines">{{discipline.name}}</li>
+            </ul>
+        </div>
+    </div>
+    <div class="flex flex-col gap-y-8 2xl:flex-row justify-between pt-12">
+        <div>
+            <h2 class="my-h2">Book An Exercise Here!</h2>
+            <div class="flex flex-col lg:flex-row gap-x-4 gap-y-4 pb-8">
+                <app-book-an-exercise-form [facility]="facility" (successEvent)="handleSuccessEvent()" />
+            </div>
+        </div>
+        <div *ngIf="count >= 1">
+            <h2 class="my-h2">Leave Review Here!</h2>
+            <div class="flex flex-col lg:flex-row gap-x-4 gap-y-4">
+                <app-make-an-impression-form [facility]="facility" [count]="count" (successEvent)="handleSuccessEvent()"  />
+            </div>
+        </div>
+        <div *ngIf="count < 1">
+            <p class="my-text-error text-center lg:text-left lg:pt-12">You need to have at least 1 finished exercise in this gym in order to leave a review.</p>
+        </div>
+    </div>
+
+    <div class="py-8">
+        <h2 class="my-h2">All Reviews</h2>
+
+       <app-sort-reviews-form [facilityId]="facilityId" (sortedReviewsData)="handleSortedReviewsData($event)" />
+
+        <app-table *ngIf="isUserManager|| loginService.isAdmin()" 
+            [headings]="['ID', 'Created At','Facility Name', 'Equipment', 'Hygene', 'Staff', 'Space', 'Hidden']"
+            [data]="filteredReviewsData"
+            [actions]="[
+            { label: 'Details', icon: 'fas fa-info-circle', btnBackground: 'bg-primary', callback: viewReviewDetails.bind(this) }, 
+            { label: 'Hide', icon: 'fas fa-edit', btnBackground: 'bg-orange-600', callback: hideReview.bind(this) }, 
+            { label: 'Delete', icon: 'fas fa-trash', btnBackground: 'bg-red-600', callback: deleteReview.bind(this) } ]">
+        </app-table>
+
+        <app-table *ngIf="!isUserManager && !loginService.isAdmin()" 
+            [headings]="['ID', 'Created At','Facility Name', 'Equipment', 'Hygene', 'Staff', 'Space', 'Hidden']"
+            [data]="filteredReviewsData"
+            [actions]="[
+            { label: 'Details', icon: 'fas fa-info-circle', btnBackground: 'bg-primary', callback: viewReviewDetails.bind(this) } ]">
+        </app-table>
+    </div>
+</app-wrap>

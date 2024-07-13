@@ -1,0 +1,84 @@
+<form [formGroup]="profileForm" (ngSubmit)="onSubmit()"
+    class="flex flex-col lg:flex-row justify-between items-center lg:items-start gap-x-12 gap-y-8">
+    <div class="flex flex-col justify-center text-center">
+        <img [src]="this.currentImageUrl" alt="Profile picture"
+            class="border-2 border-secondary w-92 h-80 rounded-lg hover:cursor-pointer" />
+            <p class="py-2 text-left font-bold">You can change image here:</p>
+            <input type="file" class="pb-8 pt-2" (change)="onFileSelected($event)"/>
+    </div>
+
+    <div class="grid lg:grid-cols-2 gap-y-8 gap-x-8 w-full text-center lg:text-left">
+        <div class="my-input-wrap">
+            <label>Email:</label>
+            <input type="email" formControlName="email" placeholder="Email" class="my-input-secondary" required
+                readonly>
+        </div>
+
+        <div class="my-input-wrap">
+            <label>Name:</label>
+            <input type="text" formControlName="name" placeholder="Name" class="my-input-secondary">
+        </div>
+
+        <div class="my-input-wrap">
+            <label>Surname:</label>
+            <input type="text" formControlName="surname" placeholder="Surname" class="my-input-secondary">
+        </div>
+
+        <div class="my-input-wrap">
+            <label>Tel:</label>
+            <input type="tel" formControlName="phoneNumber" placeholder="Tel" class="my-input-secondary">
+        </div>
+
+        <div class="my-input-wrap">
+            <label>Birthday:</label>
+            <input type="date" formControlName="birthday" placeholder="Birthday" class="my-input-secondary">
+        </div>
+
+        <div class="my-input-wrap">
+            <label>Address:</label>
+            <input type="text" formControlName="address" placeholder="Address" class="my-input-secondary" required>
+        </div>
+
+        <div class="my-input-wrap">
+            <label>City:</label>
+            <input type="text" formControlName="city" placeholder="City" class="my-input-secondary">
+        </div>
+
+        <div class="my-input-wrap">
+            <label>Zip:</label>
+            <input type="number" formControlName="zipCode" placeholder="Zip Code" class="my-input-secondary">
+        </div>
+
+        <div>
+            <p class="my-text-error" *ngIf="profileForm?.get('email')?.invalid && profileForm?.get('email')?.touched">
+                Email can't be changed.
+            </p>
+            <p class="my-text-error"
+                *ngIf="profileForm?.get('phoneNumber')?.invalid && profileForm?.get('phoneNumber')?.touched">
+                Phone number must be between 8 and 10 digits long if value exist.
+            </p>
+            <p class="my-text-error"
+                *ngIf="profileForm?.get('birthday')?.invalid && profileForm?.get('birthday')?.touched">
+                Birthday must be in the past if value exist.
+            </p>
+            <p class="my-text-error"
+                *ngIf="profileForm?.get('address')?.invalid && profileForm?.get('address')?.touched">
+                Address can't be empty.
+            </p>
+            <p class="my-text-error"
+                *ngIf="profileForm?.get('zipCode')?.invalid && profileForm?.get('zipCode')?.touched">
+                Zip code must be between 4 and 6 digits long if value exist.
+            </p>
+            <p class="my-text-success" *ngIf="successMessage">
+                {{successMessage}}
+            </p>
+        </div>
+        <div class="lg:flex lg:items-end lg:justify-end">
+            <app-button [type]="'submit'"
+                [extendClass]="!profileForm.valid ? 'border-gray items-center' : 'border-primary hover:bg-primary hover:border-primary hover:text-white items-center'"
+                [isDisabled]="!profileForm.valid">
+                UPDATE USER
+            </app-button>
+        </div>
+    </div>
+</form>

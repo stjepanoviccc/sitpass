@@ -1,0 +1,14 @@
+<form (ngSubmit)="login()" class="flex flex-col gap-y-6 text-primary">
+    <input class="my-input" placeholder="Email" type="text" id="email" name="email" [(ngModel)]="formData.email"
+        required (input)="clearErrorMessage()">
+    <input class="my-input" placeholder="Password" type="password" id="password" name="password" [(ngModel)]="formData.password" 
+        required (input)="clearErrorMessage()">
+        <p class="my-text-error text-center">{{errorMessage}}</p>
+        <div class="flex flex-row justify-between items-center">
+            <app-button extendClass="text-white bg-primary hover:text-primary hover:bg-white border-2 border-primary px-6 pt-3" type="submit">LOGIN</app-button>
+            <div class="flex flex-col items-center">
+                <p>No account?</p>
+                <a class="underline" routerLink="/register">Register here</a>
+            </div>
+        </div>
+</form>

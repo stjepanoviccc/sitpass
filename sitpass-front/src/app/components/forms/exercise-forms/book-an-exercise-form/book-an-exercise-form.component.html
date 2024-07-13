@@ -1,0 +1,17 @@
+<form (ngSubmit)="onSubmit()" class="flex flex-col gap-y-4">
+    <div class="flex flex-col lg:flex-row gap-4">
+        <div class="my-input-wrap">
+            <label>From:</label>
+            <input type="datetime-local" name="from" class="my-input-secondary" [(ngModel)]="formData.from" (input)="clearErrorMessage" />
+        </div>
+        <div class="my-input-wrap">
+            <label>Until:</label>
+            <input type="datetime-local" name="until" class="my-input-secondary" [(ngModel)]="formData.until" (input)="clearErrorMessage" />
+        </div>
+    </div>
+    <p class="my-text-error text-center lg:text-left">{{errorMessage}}</p>
+    <p class="my-text-success text-center lg:text-left">{{successMessage}}</p>
+    <div class="flex items-center justify-center lg:justify-end lg:items-end">
+        <app-button type="submit" extendClass="bg-primary border-primary text-white hover:bg-white hover:border-primary hover:text-primary">Book An Exercise</app-button>
+    </div>
+</form>

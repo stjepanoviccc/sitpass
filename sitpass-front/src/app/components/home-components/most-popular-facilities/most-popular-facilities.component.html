@@ -1,0 +1,9 @@
+<h2 class="my-h2 pt-12 lg:pt-24 text-red-600 border-b-2 border-red-600" id="mostPopularFacilities">Most Popular Facilities</h2>
+<div *ngFor="let facility of mostPopularFacilitiesData">
+    <app-facility-card *ngIf="facility" [facility]="facility"></app-facility-card>
+</div>
+<p class="text-center lg:text-left py-2" *ngIf="mostPopularFacilitiesData.length < pagination.pageSize">... No more available facilities</p>
+<app-pagination-button [pagination]="pagination" [facilitiesData]="mostPopularFacilitiesData"
+    (previousPage)="loadPreviousPage()"
+    (nextPage)="loadNextPage()">
+</app-pagination-button>

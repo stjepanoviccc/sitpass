@@ -1,0 +1,15 @@
+<app-wrap extendClass="my-page-wrap">
+    <h1 class="my-h1">Manage Managers</h1>
+  
+    <div class="pb-12" *ngIf="loginService.isAdmin()">
+      <h2 class="my-h2">Add New Manager</h2>
+      <app-create-manages-form (managesAdded)="addManages($event)" />
+    </div>
+  
+    <app-table *ngIf="loginService.isAdmin()"
+      [headings]="['ID', 'Facility(NAME)','User(EMAIL)', 'StartDate', 'EndDate']"
+      [data]="filteredManagesData"
+      [actions]="[
+      { label: 'Remove Manager', icon: 'fas fa-trash', btnBackground: 'bg-red-600', callback: deleteManages.bind(this) } ]"></app-table>
+
+  </app-wrap>

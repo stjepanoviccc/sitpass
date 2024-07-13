@@ -1,0 +1,39 @@
+<header *ngIf="isLargeScreen" class="bg-primary">
+    <app-wrap extendClass="flex flex-row lg:gap-x-20 justify-between items-center py-6 relative">
+        <a routerLink="/">
+            <img class="w-48" src="../../../assets/images/sitpass-white.png" alt="logo">
+        </a>
+        <nav class="flex flex-row items-center gap-x-6 pt-1 text-white">
+            <a class="my-link" routerLink="/">Homepage</a>
+            <a class="my-link" [routerLink]="'/profile/' + userId">Profile</a>
+            <a *ngIf="loginService.isAdmin()" class="my-link" routerLink="/dashboard/accounts">Accounts</a>
+            <a *ngIf="loginService.isAdmin()" class="my-link" routerLink="/dashboard/manages">Manages</a>
+            <a *ngIf="loginService.isAdmin()" class="my-link" routerLink="/dashboard/facilities">Facilities</a>
+        </nav>
+        <app-button extendClass="text-white bg-transparent border-white hover:bg-white hover:text-primary"
+            (buttonClick)="loginService.logout()">LOGOUT
+        </app-button>
+    </app-wrap>
+</header>
+
+<!-- small screens -->
+<header *ngIf="!isLargeScreen" class="bg-primary border-b-2 border-primary">
+    <app-wrap extendClass="flex flex-col py-6">
+        <div class="flex flex-row justify-between items-center">
+            <a routerLink="/">
+                <img class="w-40" src="../../../assets/images/sitpass-white.png" alt="logo">
+            </a>
+            <app-button (buttonClick)="toggleMenu()" extendClass="border-primary text-white text-2xl">
+                <i [class]="!showMenu ? 'fas fa-bars' : 'fas fa-close'"></i>
+            </app-button>
+        </div>
+        <nav *ngIf="showMenu" class="flex flex-col pt-4 text-left">
+            <a class="my-link-mobile" routerLink="/">Homepage</a>
+            <a class="my-link-mobile" [routerLink]="'/profile/' + userId">Profile</a>
+            <a *ngIf="loginService.isAdmin()" class="my-link-mobile" routerLink="/dashboard/accounts">Accounts</a>
+            <a *ngIf="loginService.isAdmin()" class="my-link-mobile" routerLink="/dashboard/manages">Manages</a>
+            <a *ngIf="loginService.isAdmin()" class="my-link-mobile" routerLink="/dashboard/facilities">Facilities</a>
+            <button class="my-link-mobile text-white mb-2 text-left" (click)="loginService.logout()">LOGOUT</button>
+        </nav>
+    </app-wrap>
+</header>

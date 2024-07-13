@@ -1,0 +1,45 @@
+<div class="relative overflow-x-hidden">
+    <div class="hero-image-wrapper py-32">
+        <div class="absolute top-[20%] 2xl:top-[30%] left-2 2xl:left-20 flex justify-center items-center flex-col w-full text-center md:text-left sm:block sm:w-auto pr-4">
+            <h1 class="text-[2.4rem] md:text-[3rem] lg:text-[5rem] text-white font-bold">SITPASS FITNESS</h1>
+            <h2 class="text-[1.5rem] md:text-[2rem] lg:text-[3rem] text-white font-bold">TRAIN EVERYWHERE!</h2>
+            <p class="text-lg lg:text-xl text-white py-4 font-bold">For everyone who wants to change their physical appearance and want to bring it to a higher level</p>
+            <div class="flex gap-x-4 pt-6">
+                <app-button (click)="scrollService.scrollToAnchor('filterFacilities')" type="button" extendClass="hidden sm:block border-white text-white hover:bg-white hover:text-primary lg:py-3 lg:px-5">
+                    FILTER FACILITIES
+                </app-button>
+                <app-button (click)="scrollService.scrollToAnchor('allFacilities')" type="button" extendClass="border-white bg-white text-primary lg:py-3 lg:px-5 mr-4 lg:mr-0">
+                    SEE ALL FACILITIES
+                </app-button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-wrap extendClass="my-page-wrap">
+    <h2 class="my-h2" id="filterFacilities">Filter Facilities</h2>
+    <div class="pb-8 font-bold text-center lg:text-left italic text-red-600">*** Filtering is only associated with 
+         <button class="text-xl italic" (click)="scrollService.scrollToAnchor('explorAllFacilities')">"Explore All Facilities"</button>...
+         <button class="text-xl italic" (click)="scrollService.scrollToAnchor('mostPopularFacilities')">"Most Popular"</button>, 
+         <button class="text-xl italic" (click)="scrollService.scrollToAnchor('frequentlyVisitedFacilities')">"Frequently Visited"</button> and 
+         <button class="text-xl italic" (click)="scrollService.scrollToAnchor('exploreNewFacilities')">"Explore New Facilities"</button>
+          are always without filter. ***
+    </div>
+    <app-filter-facility-form (filteredFacilitiesData)="handleFilteredFacilitiesData($event)"
+        (filteredFormData)="handleFilteredFormData($event)" (isFiltered)="handleIsFiltered($event)" />
+
+    <h2 class="my-h2 pt-12 lg:pt-24 border-b-2 border-primary" id="explorAllFacilities">Explore ALL Facilities</h2>
+    <div *ngFor="let facility of facilitiesData">
+        <app-facility-card [facility]="facility"></app-facility-card>
+    </div>
+    <p class="text-center lg:text-left py-2" *ngIf="facilitiesData.length == 0">... No more available facilities.</p>
+    <app-pagination-button [pagination]="allPagination" [facilitiesData]="facilitiesData"
+        (previousPage)="allPagination_loadPreviousPage()"
+        (nextPage)="allPagination_loadNextPage()">
+    </app-pagination-button>
+
+    <!-- most popular, frequently visited and explore new components in "components/home-components"-->
+    <app-most-popular-facilities />
+    <app-frequently-visited-facilities />
+    <app-explore-new-facilities />
+</app-wrap>

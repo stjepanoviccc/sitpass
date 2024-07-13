@@ -1,0 +1,23 @@
+<form class="flex flex-col gap-y-6 pb-10" (submit)="onSubmit()">
+    <div class="flex flex-row gap-x-4">
+        <label for="sortRatingDropdown">Sort by Rating:</label>
+        <select id="sortRatingDropdown" name="sortRatingDropdown" class="bg-transparent my-input-secondary" [(ngModel)]="formData.sortRating">
+            <option value="default">Default</option>
+            <option value="ASC">Low to High</option>
+            <option value="DESC">High to Low</option>
+        </select>
+    </div>
+    <div class="flex flex-row gap-x-4">
+        <label for="sortDateDropdown">Sort by Date:</label>
+        <select id="sortDateDropdown" name="sortDateDropdown" class="bg-transparent my-input-secondary" [(ngModel)]="formData.sortDate">
+            <option value="default">Default</option>
+            <option value="ASC">Oldest First</option>
+            <option value="DESC">Newest First</option>
+        </select>
+    </div>
+    <div class="flex items-center justify-center lg:justify-end lg:items-end">
+        <app-button type="submit" extendClass="border-primary hover:bg-primary hover:border-primary hover:text-white items-center">
+            Apply Sort
+        </app-button>
+    </div>
+</form>

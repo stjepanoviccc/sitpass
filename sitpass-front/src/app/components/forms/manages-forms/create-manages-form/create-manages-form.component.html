@@ -1,0 +1,25 @@
+<form (ngSubmit)="onSubmit()" class="flex flex-col justify-between gap-x-12 gap-y-8">
+    <div class="my-input-wrap">
+        <input class="my-input-secondary" placeholder="User(Email)" type="email" id="email" name="email"
+            [(ngModel)]="formData.name" required (input)="clearErrorMessage()">
+    </div>
+    <div class="my-input-wrap">
+        <input class="my-input-secondary" placeholder="Facility(Name)" type="text" id="name" name="name"
+            [(ngModel)]="formData.email" required (input)="clearErrorMessage()">
+    </div>
+    <div class="my-input-wrap">
+        <label>Start Date:</label>
+        <input type="date" name="startDate" class="my-input-secondary" [(ngModel)]="formData.startDate"
+            (input)="clearErrorMessage" />
+    </div>
+    <div class="my-input-wrap">
+        <label>End Date:</label>
+        <input type="date" name="endDate" class="my-input-secondary" [(ngModel)]="formData.endDate"
+            (input)="clearErrorMessage" />
+    </div>
+    <p class="my-text-error text-center lg:text-left">{{errorMessage}}</p>
+    <div class="text-center lg:text-left">
+        <app-button extendClass="text-white bg-primary hover:text-primary hover:bg-white border-2 border-primary px-6 pt-3"
+        type="submit">Make Manages</app-button>
+    </div>
+</form>

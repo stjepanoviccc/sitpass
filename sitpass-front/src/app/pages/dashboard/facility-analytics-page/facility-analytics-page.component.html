@@ -1,0 +1,84 @@
+<app-wrap extendClass="my-page-wrap">
+    <h1 class="my-h1">Analytics</h1>
+    
+    <div class="lg:flex lg:flex-row gap-x-24">
+        <div class="lg:w-1/2">
+          <h2 class="my-h2 pt-12">Users Chart</h2>
+          <canvas id="usersChart"></canvas>
+        </div>
+      
+        <div class="lg:w-1/2">
+          <h2 class="my-h2 pt-12">Reviews Chart</h2>
+          <canvas id="reviewsChart"></canvas>
+        </div>
+    </div>
+
+    <div class="lg:flex lg:flex-row gap-x-24 mt-12">
+      <div class="lg:w-[70%]">
+        <h2 class="my-h2 pt-12">Peak Hours Chart</h2>
+        <canvas id="peakHoursChart"></canvas>
+      </div>
+  </div>
+
+  <div class="lg:flex lg:flex-row gap-x-24 mt-24">
+    <div class="lg:w-1/2">
+      <h2 class="my-h2 pt-12">Users CUSTOM Chart</h2>
+      <form id="usersCustomForm" class="flex flex-col gap-y-2" (submit)="submitCustomUsersChartForm()">
+        <div class="mb-4">
+          <label for="usersCustomDateFrom">Date From:</label>
+          <input type="datetime-local" class="my-input-secondary" id="usersCustomDateFrom" name="dateFrom" #usersCustomDateFrom>
+        </div>
+        <div class="mb-4">
+          <label for="usersCustomDateTo">Date To:</label>
+          <input type="datetime-local" class="my-input-secondary" id="usersCustomDateTo" name="dateTo" #usersCustomDateTo>
+        </div>
+        <app-button type="submit" extendClass="border-primary bg-white text-primary hover:bg-primary hover:text-white">
+            Update Chart
+        </app-button>
+      </form>
+      <canvas id="usersCustomChart"></canvas>
+    </div>
+  
+    <div class="lg:w-1/2">
+      <h2 class="my-h2 pt-12">Reviews CUSTOM Chart</h2>
+      <form id="reviewsCustomForm" class="flex flex-col gap-y-2" (submit)="submitCustomReviewsChartForm()">
+        <div class="mb-4">
+          <label for="reviewsCustomDateFrom">Date From:</label>
+          <input type="datetime-local" class="my-input-secondary" id="reviewsCustomDateFrom" name="dateFrom" #reviewsCustomDateFrom>
+        </div>
+        <div class="mb-4">
+          <label for="reviewsCustomDateTo">Date To:</label>
+          <input type="datetime-local" class="my-input-secondary" id="reviewsCustomDateTo" name="dateTo" #reviewsCustomDateTo>
+        </div>
+        <app-button type="submit" extendClass="border-primary bg-white text-primary hover:bg-primary hover:text-white">
+          Update Chart
+      </app-button>
+      </form>
+      <canvas id="reviewsCustomChart"></canvas>
+    </div>
+  </div>
+
+  <div class="w-full mt-8">
+    <form id="peakHoursCustomForm" class="flex flex-col gap-y-2" (submit)="submitCustomPeakHoursChartForm()">
+      <div class="mb-4">
+        <label for="peakHoursCustomDateFrom">Date From:</label>
+        <input type="datetime-local" class="my-input-secondary" id="peakHoursCustomDateFrom" name="dateFrom" #peakHoursCustomDateFrom>
+      </div>
+      <div class="mb-4">
+        <label for="peakHoursCustomDateTo">Date To:</label>
+        <input type="datetime-local" class="my-input-secondary" id="peakHoursCustomDateTo" name="dateTo" #peakHoursCustomDateTo>
+      </div>
+      <app-button type="submit" extendClass="border-primary bg-white text-primary hover:bg-primary hover:text-white">
+        Update Chart
+    </app-button>
+    </form>
+  </div>
+
+  <div class="lg:flex lg:flex-row gap-x-24">
+    <div class="lg:w-1/2">
+      <h2 class="my-h2 pt-12">Peak Hours CUSTOM Chart</h2>
+      <canvas id="peakHoursCustomChart"></canvas>
+    </div>
+  </div>
+
+</app-wrap>

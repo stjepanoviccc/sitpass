@@ -1,0 +1,41 @@
+<div class="overflow-x-auto">
+  <table class="min-w-full divide-y divide-gray-300">
+    <thead class="bg-secondary">
+      <tr>
+        <ng-container *ngFor="let heading of headings">
+          <th scope="col" class="px-6 py-3 text-left font-medium text-white text-sm uppercase tracking-wider">{{
+            heading }}</th>
+        </ng-container>
+        <th scope="col" class="px-6 py-3 text-left font-medium text-white text-sm uppercase tracking-wider">Actions
+        </th>
+      </tr>
+    </thead>
+    <tbody class="bg-transparent divide-y divide-gray-300">
+      <ng-container *ngIf="data.length === 0; else dataExists">
+        <tr>
+          <td [attr.colspan]="headings.length + 1" class="px-6 py-4 whitespace-nowrap">
+            <p class="text-sm">No data available</p>
+          </td>
+        </tr>
+      </ng-container>
+      <ng-template #dataExists>
+        <tr *ngFor="let row of data">
+          <ng-container *ngFor="let key of getObjectKeys(row)">
+            <td class="px-6 py-4 whitespace-nowrap">
+              <p class="text-sm">{{ row[key] || '-' }}</p>
+            </td>
+          </ng-container>
+          <td class="px-6 py-4 whitespace-nowrap">
+            <ng-container *ngFor="let action of actions">
+              <button (click)="performAction(action, row)"
+                class="mr-2 text-xs font-semibold py-1 px-2 rounded {{action.btnBackground}} text-white">
+                <i *ngIf="action.icon" class="mr-1 {{ action.icon }}"></i>
+                {{ action.label }}
+              </button>
+            </ng-container>
+          </td>
+        </tr>
+      </ng-template>
+    </tbody>
+  </table>
+</div>
